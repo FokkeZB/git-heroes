@@ -1,17 +1,17 @@
 {
-  "name": "git-contributors",
+  "name": "git-heroes",
   "version": "1.0.0",
   "description": "List git contributors between two revisions.",
   "main": "index.js",
   "bin": {
-    "git-contributors": "./bin/git-contributors"
+    "git-heroes": "./bin/git-heroes"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fokkezb/git-contributors.git"
+    "url": "git+https://github.com/fokkezb/git-heroes.git"
   },
   "keywords": [
     "git",
@@ -21,9 +21,9 @@
   "author": "Fokke Zandbergen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fokkezb/git-contributors/issues"
+    "url": "https://github.com/fokkezb/git-heroes/issues"
   },
-  "homepage": "https://github.com/fokkezb/git-contributors#readme",
+  "homepage": "https://github.com/fokkezb/git-heroes#readme",
   "dependencies": {
     "commander": "^2.9.0",
     "markdown-table": "^0.4.0"
