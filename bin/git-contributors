@@ -1,0 +1,63 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var table = require('markdown-table');
+
+var main = require('../');
+var pkg = require('../package.json');
+
+program
+	.version(pkg.version)
+	.option('-r, --repository <repository>', 'Revision range', process.cwd())
+	.option('-p, --previous <revision>', 'Include commits after a certain revision')
+	.option('-c, --current <revision>', 'Include commits for a certain revision')
+	.option('-s, --sort <by>', 'Sort by commits, added, deleted, sum or diff [sum]', 'sum')
+	.option('-o, --output <type>', 'Output type', /^(json|md)$/, 'json')
+	.parse(process.argv);
+
+main.run(program, function(err, res) {
+
+	if (err) {
+
+		if (program.output !== 'json') {
+			console.error(err);
+		} else {
+			console.error(JSON.stringify(err, null, 2));
+		}
+
+		process.exit(1);
+	}
+
+	if (program.output === 'md') {
+
+		var rows = res.contributors.map(function(contributor) {
+
+			return [
+				contributor.name,
+				contributor.email,
+				contributor.commits,
+				contributor.added,
+				contributor.deleted,
+				contributor.sum,
+				contributor.diff
+			];
+
+		});
+
+		rows.unshift([
+			'name',
+			'email',
+			'commits (' + res.totals.commits + ')',
+			'added (' + res.totals.added + ')',
+			'deleted (' + res.totals.deleted + ')',
+			'sum (' + res.totals.sum + ')',
+			'diff (' + res.totals.diff + ')'
+		]);
+
+		console.log(table(rows));
+
+	} else {
+		console.log(JSON.stringify(res, null, 2));
+	}
+
+});

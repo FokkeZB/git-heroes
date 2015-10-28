@@ -1,0 +1,31 @@
+{
+  "name": "git-contributors",
+  "version": "1.0.0",
+  "description": "List git contributors between two revisions.",
+  "main": "index.js",
+  "bin": {
+    "git-contributors": "./bin/git-contributors"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fokkezb/git-contributors.git"
+  },
+  "keywords": [
+    "git",
+    "github",
+    "contributors"
+  ],
+  "author": "Fokke Zandbergen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fokkezb/git-contributors/issues"
+  },
+  "homepage": "https://github.com/fokkezb/git-contributors#readme",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "markdown-table": "^0.4.0"
+  }
+}
