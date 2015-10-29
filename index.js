@@ -47,14 +47,21 @@ exports.run = function run(opts, callback) {
 		});
 
 		var contributors = {};
+		var names = {};
 
 		commits.forEach(function(commit) {
 
-			if (!contributors[commit.email]) {
-				contributors[commit.email] = [];
+			if (opts.names && !names[commit.name]) {
+				names[commit.name] = commit.email;
 			}
 
-			contributors[commit.email].push(commit);
+			var email = (opts.names && !contributors[commit.email] && names[commit.name]) ? names[commit.name] : commit.email;
+
+			if (!contributors[email]) {
+				contributors[email] = [];
+			}
+
+			contributors[email].push(commit);
 		});
 
 		var results = {
