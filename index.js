@@ -26,10 +26,24 @@ exports.run = function run(opts, callback) {
 		var commits = trim(stdout).split('<COMMIT>').slice(1).map(function(line) {
 			var commit = split(line, '<FIELD>', ['name', 'email', 'subject', 'numstat']);
 
-			commit.numstat = split(commit.numstat, '\t', ['added', 'deleted']);
+			var numstat = commit.numstat;
+
+			commit.numstat = {
+				added: 0,
+				deleted: 0
+			}
+
+			if (numstat) {
+
+				numstat.split('\n').forEach(function(file) {
+					var filestat = file.split('\t');
+
+					commit.numstat.added += (filestat[0] === '-') ? 1 : parseInt(filestat[0], 10);
+					commit.numstat.deleted += (filestat[1] === '-') ? 1 : parseInt(filestat[1], 10);
+				});
+			}
 
 			return commit;
-
 		});
 
 		var contributors = {};
@@ -68,8 +82,8 @@ exports.run = function run(opts, callback) {
 			};
 
 			contributors[email].forEach(function(commit) {
-				result.added += (commit.numstat.added === '-') ? 1 : parseInt(commit.numstat.added, 10);
-				result.deleted += (commit.numstat.deleted === '-') ? 1 : parseInt(commit.numstat.deleted, 10);
+				result.added += commit.numstat.added;
+				result.deleted += commit.numstat.deleted;
 
 				result.subjects.push(commit.subject);
 			});
