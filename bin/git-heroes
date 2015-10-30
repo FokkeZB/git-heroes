@@ -3,12 +3,12 @@
 var program = require('commander');
 var table = require('markdown-table');
 
-var main = require('../');
+var heroes = require('../');
 var pkg = require('../package.json');
 
 program
 	.version(pkg.version)
-	.option('-r, --repository <repository>', 'Revision range', process.cwd())
+	.arguments('[path]')
 	.option('-p, --previous <revision>', 'Include commits after a certain revision')
 	.option('-c, --current <revision>', 'Include commits for a certain revision')
 	.option('-s, --sort <by>', 'Sort by commits, added, deleted, sum or diff [sum]', 'sum')
@@ -16,7 +16,10 @@ program
 	.option('-n, --names', 'Use both email and name to identify contributors')
 	.parse(process.argv);
 
-main.run(program, function(err, res) {
+var opts = program.opts();
+opts.path = program.args[0] || process.cwd();
+
+heroes(opts, function(err, res) {
 
 	if (err) {
 

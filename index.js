@@ -1,20 +1,20 @@
 var exec = require('child_process').exec;
 
-exports.run = function run(opts, callback) {
+module.exports = function heroes(opts, callback) {
 	opts = opts || {};
 
 	var cmd = 'git log --numstat --no-merges --pretty="<COMMIT>%aN<FIELD>%aE<FIELD>%s<FIELD>"';
 
 	if (opts.previous) {
-		cmd += ' ' + opts.previous + '..';
+		cmd += ' ' + opts.previous;
 
 		if (opts.current) {
-			cmd += opts.current;
+			cmd +=  '..' + opts.current;
 		}
 	}
 
 	exec(cmd, {
-		cwd: opts.repository,
+		cwd: opts.path,
 		maxBuffer: 25000 * 1024
 
 	}, function(err, stdout) {
