@@ -30,7 +30,7 @@ $ git-heroes -c 5_1_X -p 5_0_2_GA -o md -n
 | Praveen Innamuri | pinnamuri@appcelerator.com      | 1             | 1              | 1                | 2            | 0             |
 ```
 
-## Install [![npm](http://img.shields.io/npm/v/git-heroes.pg)](https://www.npmjs.org/package/git-heroes)
+## Install [![npm](https://img.shields.io/npm/v/git-heroes.png)](https://www.npmjs.org/package/git-heroes)
 
 As global CLI:
 
