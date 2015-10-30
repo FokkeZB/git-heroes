@@ -135,13 +135,27 @@ module.exports = function heroes(opts, callback) {
 		results.totals.diff = Math.abs(results.totals.added - results.totals.deleted);
 
 		results.contributors.sort(function(a, b) {
+			var aVal = a[opts.sort];
+			var bVal = b[opts.sort];
 
-			if (a[opts.sort] === b[opts.sort]) {
-				return 0;
-			} else {
-				return (a[opts.sort] < b[opts.sort]) ? 1 : -1;
+			if (typeof aVal === 'string') {
+				aVal = aVal.toLowerCase();
+				bVal = bVal.toLowerCase();
 			}
 
+			var res;
+
+			if (aVal === bVal) {
+				res = 0;
+			} else {
+				res = (aVal < bVal) ? 1 : -1;
+
+				if (opts.asc) {
+					res = -res;
+				}
+			}
+
+			return res;
 		});
 
 		callback(null, results);

@@ -9,7 +9,7 @@ A great insight and way to thank your community.
 Get the contributors between the last 5.0.2 release and the current 5.1.x version of [Appcelerator Titanium](https://github.com/appcelerator/titanium_mobile).
 
 ```
-$ git-heroes -c 5_1_X -p 5_0_2_GA -o md -n
+$ git-heroes -c 5_1_X -p 5_0_2_GA -n
 | name (16)        | email                           | commits (255) | added (176061) | deleted (347769) | sum (523830) | diff (171708) |
 | ---------------- | ------------------------------- | ------------- | -------------- | ---------------- | ------------ | ------------- |
 | Chris Barber     | chris@cb1inc.com                | 43            | 146762         | 255795           | 402557       | 109033        |
@@ -59,8 +59,9 @@ $ git-heroes -h
     -V, --version              output the version number
     -p, --previous <revision>  Include commits after a certain revision
     -c, --current <revision>   Include commits for a certain revision
-    -s, --sort <by>            Sort by commits, added, deleted, sum or diff [sum]
-    -o, --output <type>        Output type
+    -s, --sort <by>            Sort by name, email, commits, added, deleted, sum or diff [sum]
+    -a, --asc                  Sort ascending instead of default descending
+    -o, --output <type>        Output type [md]
     -n, --names                Use both email and name to identify contributors
 ```
 
