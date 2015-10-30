@@ -46,7 +46,7 @@ main.run(program, function(err, res) {
 		});
 
 		rows.unshift([
-			'name',
+			'name (' + res.totals.contributors + ')',
 			'email',
 			'commits (' + res.totals.commits + ')',
 			'added (' + res.totals.added + ')',

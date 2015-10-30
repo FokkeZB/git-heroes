@@ -46,16 +46,45 @@ exports.run = function run(opts, callback) {
 			return commit;
 		});
 
+		stdout = null;
+
 		var contributors = {};
+
 		var names = {};
+		var emails = [];
+
+		var results = {
+			contributors: [],
+			totals: {
+				contributors: 0,
+				names: 0,
+				emails: 0,
+				commits: commits.length,
+				added: 0,
+				deleted: 0,
+				sum: 0,
+				diff: 0
+			}
+		};
 
 		commits.forEach(function(commit) {
 
-			if (opts.names && !names[commit.name]) {
+			if (!names[commit.name]) {
 				names[commit.name] = commit.email;
+
+				results.totals.names++;
 			}
 
-			var email = (opts.names && !contributors[commit.email] && names[commit.name]) ? names[commit.name] : commit.email;
+			var email = commit.email;
+
+			if (emails.indexOf(commit.email) === -1) {
+				emails.push(commit.email);
+
+				// if enabled, use first email found for this name
+				if (opts.names && names[commit.name]) {
+					email = names[commit.name];
+				}
+			}
 
 			if (!contributors[email]) {
 				contributors[email] = [];
@@ -64,16 +93,11 @@ exports.run = function run(opts, callback) {
 			contributors[email].push(commit);
 		});
 
-		var results = {
-			contributors: [],
-			totals: {
-				commits: commits.length,
-				added: 0,
-				deleted: 0,
-				sum: 0,
-				diff: 0
-			}
-		};
+		results.totals.emails = emails.length;
+
+		commits = null;
+		names = null;
+		emails = null;
 
 		for (var email in contributors) {
 
@@ -104,6 +128,9 @@ exports.run = function run(opts, callback) {
 			results.contributors.push(result);
 		}
 
+		contributors = null;
+
+		results.totals.contributors = results.contributors.length;
 		results.totals.sum = results.totals.added + results.totals.deleted;
 		results.totals.diff = Math.abs(results.totals.added - results.totals.deleted);
 
