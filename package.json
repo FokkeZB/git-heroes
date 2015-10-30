@@ -1,6 +1,6 @@
 {
   "name": "git-heroes",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "List git contributors between two revisions.",
   "main": "index.js",
   "bin": {
